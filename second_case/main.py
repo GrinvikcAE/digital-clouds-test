@@ -21,7 +21,9 @@ llama = LlamaAPI(TOKEN)
 
 
 def make_congratulation(person_name: str):
+
     name = person_name
+    print(name)
     name = translator.translate(f'{name}', dest='en').text
     print(name)
     content = f"Congratulate me on my birthday and wish something, my name is {name}"
@@ -62,13 +64,15 @@ def make_congratulation(person_name: str):
         return False
 
 
-@app.api_route('/', methods=['GET', 'POST'], tags=['Main'])
-def index(request: Request, name: str = None):
-    if request.method == 'POST':
-        result = make_congratulation(name)
-        return templates.TemplateResponse('base.html', {'request': request, 'result': result})
-    else:
-        return templates.TemplateResponse('base.html', {'request': request, 'result': ''})
+@app.get('/', tags=['Main'])
+def index(request: Request):
+    return templates.TemplateResponse('base.html', {'request': request, 'result': ''})
+
+
+@app.post('/', tags=['Main'])
+def index(request: Request, name: str = Form()):
+    result = make_congratulation(name)
+    return templates.TemplateResponse('base.html', {'request': request, 'result': result})
 
 
 if __name__ == '__main__':
