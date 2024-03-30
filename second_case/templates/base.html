@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор поздравлений</title>
+</head>
+<body>
+    <div>
+        <form method="post" action="/">
+            <p>
+                Напишите свое имя:<br>
+                <label>
+                    <input name="name" type="text" title="Обязательное поле для заполнения" required>
+                </label>
+            </p>
+            <button type="submit">Сгенерировать</button>
+        </form>
+    </div>
+    {% if result != '' %}
+        <div>
+            {{ result }}
+        </div>
+    {% endif %}
+</body>
+</html>
